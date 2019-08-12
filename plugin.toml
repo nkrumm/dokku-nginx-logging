@@ -1,0 +1,4 @@
+[plugin]
+description = "Adds default nginx.conf.sigil to repository to enable custom logging strings. Can be used to enforce default loggin on dokku."
+version = "0.1.0"
+[plugin.config]
