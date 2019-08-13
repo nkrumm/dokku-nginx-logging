@@ -6,12 +6,13 @@ set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 source "$PLUGIN_CORE_AVAILABLE_PATH/common/functions"
 
 APP="$1"
+TMP_WORK_DIR="$2"
 
 NGINX_TEMPLATE="$PLUGIN_AVAILABLE_PATH/nginx-logging/nginx.conf.sigil.default"
 
 if [ ! -f "$DOKKU_ROOT/$APP/nginx.conf.sigil" ]; then
 	if grep -q "log_format custom" /etc/nginx/nginx.conf; then
-		cp $NGINX_TEMPLATE "$DOKKU_ROOT/$APP/nginx.conf.sigil"
+		cp $NGINX_TEMPLATE "$TMP_WORK_DIR/nginx.conf.sigil"
 		dokku_log_info1 "Custom nginx.conf.sigil deployed."	
 	else
 		dokku_log_fail "Cannot install custom logging without `log_format custom` in /etc/nginx/nginx.conf"
